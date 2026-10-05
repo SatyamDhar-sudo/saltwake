@@ -1,0 +1,189 @@
+/* style.css: the menus, garage and touch buttons. The game world itself is drawn on the canvas. */
+
+:root {
+  --ink: #2a2030;        /* the dark outline colour used everywhere */
+  --paper: #f6ecd6;      /* bleached salt-paper panels */
+  --paper-2: #eadcbf;
+  --teal: #2f8f97;
+  --coral: #e2674f;
+  --gold: #e9b04a;
+  --muted: #8a7a6c;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #1d1a26;
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+canvas#game { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+
+.hidden { display: none !important; }
+
+/* ---------- full-screen overlay screens ---------- */
+.screen {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+  background: rgba(29, 20, 36, 0.35);
+}
+
+.panel {
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 24px 28px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(44px, 9vw, 76px);
+  letter-spacing: 6px;
+  color: var(--coral);
+  text-shadow: 4px 4px 0 var(--ink);
+  -webkit-text-stroke: 2px var(--ink);
+}
+h2 { margin: 0 0 8px; font-size: 28px; letter-spacing: 2px; }
+
+.tagline { font-weight: bold; margin: 6px 0 12px; color: var(--teal); }
+.story { line-height: 1.5; margin: 0 0 18px; }
+.flavour { font-style: italic; color: #5d4f5a; margin: 0 0 14px; }
+
+.buttons { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.buttons.column { flex-direction: column; align-items: stretch; }
+
+button {
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper-2);
+  color: var(--ink);
+  padding: 8px 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.05s;
+}
+button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+button:disabled { opacity: 0.45; cursor: default; }
+button.big { background: var(--coral); color: #fff8ee; font-size: 22px; padding: 10px 28px; letter-spacing: 1px; }
+button.link { border: none; box-shadow: none; background: none; color: var(--muted); text-decoration: underline; padding: 4px 0; margin-top: 14px; font-size: 13px; }
+
+.controls-help { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 18px; font-size: 14px; color: #5d4f5a; }
+kbd {
+  display: inline-block; min-width: 22px; text-align: center;
+  border: 2px solid var(--ink); border-radius: 5px; background: #fff;
+  padding: 0 4px; margin-right: 2px; font-size: 12px; font-family: inherit;
+}
+
+/* ---------- garage ---------- */
+#screen-garage { background: rgba(29, 20, 36, 0.55); }
+
+.garage {
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--ink);
+  width: 100%; max-width: 1080px; max-height: 100%;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.garage-head, .garage-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 20px; background: var(--paper-2);
+}
+.garage-head { border-bottom: 3px solid var(--ink); }
+.garage-foot { border-top: 3px solid var(--ink); }
+.garage-cash { font-size: 30px; font-weight: bold; color: #3b7d3a; }
+.garage-body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  padding: 14px 20px; overflow: auto; flex: 1;
+}
+#preview {
+  width: 100%; height: auto; aspect-ratio: 560 / 250;
+  border: 3px solid var(--ink); border-radius: 10px;
+  background: linear-gradient(#9fd5dc, #f3e6c8);
+}
+
+.vehicles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+.vehicle-card {
+  border: 3px solid var(--ink); border-radius: 10px; padding: 6px 8px;
+  background: #fffaf0; text-align: left; box-shadow: 2px 2px 0 var(--ink);
+  font-size: 13px; display: flex; flex-direction: column; gap: 2px;
+}
+.vehicle-card b { font-size: 15px; }
+.vehicle-card.selected { background: #d6efe9; outline: 3px solid var(--teal); }
+.vehicle-card .tag { font-size: 12px; color: var(--muted); font-weight: normal; }
+
+.stats { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; align-items: center; }
+.stat-bar { height: 10px; border: 2px solid var(--ink); border-radius: 6px; background: #fffaf0; overflow: hidden; }
+.stat-bar div { height: 100%; background: var(--teal); }
+
+.upgrades { display: flex; flex-direction: column; gap: 8px; }
+.upgrade {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 10px;
+  border: 3px solid var(--ink); border-radius: 10px; padding: 8px 10px; background: #fffaf0;
+}
+.upgrade .name { font-weight: bold; font-size: 16px; }
+.upgrade .desc { font-size: 12.5px; color: #5d4f5a; grid-column: 1; }
+.upgrade .pips { display: flex; gap: 4px; margin-top: 3px; }
+.upgrade .pip { width: 18px; height: 9px; border: 2px solid var(--ink); border-radius: 3px; background: #fff; }
+.upgrade .pip.on { background: var(--gold); }
+.upgrade button { grid-column: 2; grid-row: 1 / span 3; align-self: center; min-width: 96px; background: #bfe3d6; }
+.upgrade button.cant { background: #e7dccb; }
+
+.garage-best { font-size: 14px; flex: 1; max-width: 420px; }
+.mini-bar { height: 10px; border: 2px solid var(--ink); border-radius: 6px; background: #fffaf0; margin-top: 4px; overflow: hidden; }
+.mini-bar div { height: 100%; background: var(--coral); width: 0; }
+
+/* ---------- summary ---------- */
+.summary table { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 16px; }
+.summary td { padding: 5px 4px; border-bottom: 2px dashed #d9c9aa; }
+.summary td:last-child { text-align: right; font-weight: bold; }
+.s-total { font-size: 34px; font-weight: bold; color: #3b7d3a; margin: 4px 0 16px; }
+
+/* ---------- in-run buttons ---------- */
+#run-buttons { position: fixed; top: 10px; right: 10px; display: flex; gap: 8px; }
+#run-buttons button { width: 42px; height: 42px; padding: 0; font-size: 18px; background: rgba(246, 236, 214, 0.85); }
+
+/* ---------- touch controls ---------- */
+#touch {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: 0 14px calc(14px + env(safe-area-inset-bottom));
+  pointer-events: none;
+}
+#touch .touch-left, #touch .touch-right { display: flex; gap: 12px; pointer-events: auto; }
+#touch button {
+  width: 76px; height: 76px; border-radius: 50%;
+  font-size: 26px; line-height: 1; padding: 0;
+  background: rgba(246, 236, 214, 0.55);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  touch-action: none;
+}
+#touch button small { font-size: 10px; margin-top: 2px; }
+#touch button.gas { background: rgba(140, 214, 160, 0.65); }
+#touch button.boost { background: rgba(143, 210, 222, 0.65); }
+#touch button.held { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); filter: brightness(1.15); }
+
+/* ---------- small screens ---------- */
+@media (max-width: 760px) {
+  .garage-body { grid-template-columns: 1fr; }
+  .panel { padding: 18px; }
+  .vehicles { grid-template-columns: repeat(3, 1fr); }
+  .vehicle-card { font-size: 11px; }
+  #touch button { width: 64px; height: 64px; font-size: 22px; }
+}

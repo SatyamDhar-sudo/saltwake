@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Saltwake</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- The whole game world is drawn on this one canvas. -->
+  <canvas id="game"></canvas>
+
+  <!-- ============ TITLE SCREEN ============ -->
+  <section id="screen-title" class="screen">
+    <div class="panel title-panel">
+      <h1>SALTWAKE</h1>
+      <p class="tagline">The sea drained away in a single night. Drive it home.</p>
+      <p class="story">
+        Thirty years after the ocean vanished, the old seabed is a desert of salt, bleached coral
+        and stranded wrecks. You are <b>Wren</b>, a lighthouse keeper's kid carrying the
+        <b>Tide Pearl</b>, the one thing that can call the water back. The scavengers of the
+        <b>Salt Choir</b> want it. Reach the <b>Last Lighthouse</b>, five kilometres west,
+        before the sun goes down.
+      </p>
+      <div class="buttons">
+        <button id="btn-play" class="big">Set Out</button>
+      </div>
+      <div class="controls-help">
+        <span><kbd>&rarr;</kbd><kbd>D</kbd> gas</span>
+        <span><kbd>&larr;</kbd><kbd>A</kbd> brake / reverse</span>
+        <span><kbd>&uarr;</kbd><kbd>W</kbd> nose up</span>
+        <span><kbd>&darr;</kbd><kbd>S</kbd> nose down</span>
+        <span><kbd>Space</kbd><kbd>Shift</kbd> steam boost</span>
+        <span><kbd>P</kbd> pause &nbsp; <kbd>M</kbd> mute</span>
+      </div>
+      <button id="btn-reset" class="link">Erase saved progress</button>
+    </div>
+  </section>
+
+  <!-- ============ GARAGE ("The Boatyard") ============ -->
+  <section id="screen-garage" class="screen hidden">
+    <div class="garage">
+      <header class="garage-head">
+        <h2>The Boatyard</h2>
+        <div class="garage-cash">$<span id="g-cash">0</span></div>
+      </header>
+      <div class="garage-body">
+        <div class="garage-left">
+          <canvas id="preview" width="560" height="250"></canvas>
+          <div id="g-vehicles" class="vehicles"></div>
+          <div id="g-stats" class="stats"></div>
+        </div>
+        <div class="garage-right">
+          <div id="g-upgrades" class="upgrades"></div>
+        </div>
+      </div>
+      <footer class="garage-foot">
+        <div class="garage-best">
+          <div>Best run: <b><span id="g-best">0</span> m</b> of 5000 m</div>
+          <div class="mini-bar"><div id="g-best-bar"></div></div>
+        </div>
+        <button id="btn-drive" class="big">Drive &#9654;</button>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============ END-OF-RUN SUMMARY ============ -->
+  <section id="screen-summary" class="screen hidden">
+    <div class="panel summary">
+      <h2 id="s-title">Out of fuel</h2>
+      <p id="s-flavour" class="flavour"></p>
+      <table id="s-table"></table>
+      <div class="s-total">+ $<span id="s-cash">0</span></div>
+      <button id="btn-to-garage" class="big">To the Boatyard</button>
+    </div>
+  </section>
+
+  <!-- ============ PAUSE ============ -->
+  <section id="screen-pause" class="screen hidden">
+    <div class="panel pause">
+      <h2>Paused</h2>
+      <div class="buttons column">
+        <button id="btn-resume" class="big">Resume</button>
+        <button id="btn-abandon">Abandon run</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Small buttons shown while driving -->
+  <div id="run-buttons" class="hidden">
+    <button id="btn-mute" title="Mute (M)">&#9835;</button>
+    <button id="btn-pause" title="Pause (P)">II</button>
+  </div>
+
+  <!-- On-screen buttons for phones and tablets -->
+  <div id="touch" class="hidden">
+    <div class="touch-left">
+      <button data-touch="brake">&#9664;<small>brake</small></button>
+      <button data-touch="gas" class="gas">&#9654;<small>gas</small></button>
+    </div>
+    <div class="touch-right">
+      <button data-touch="leanBack">&#10226;<small>nose up</small></button>
+      <button data-touch="leanFwd">&#10227;<small>nose down</small></button>
+      <button data-touch="boost" class="boost">&#9832;<small>boost</small></button>
+    </div>
+  </div>
+
+  <!-- Game code. Plain scripts (no modules) so double-clicking index.html just works. -->
+  <script src="js/util.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/terrain.js"></script>
+  <script src="js/physics.js"></script>
+  <script src="js/vehicles.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/enemies.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/garage.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
