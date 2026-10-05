@@ -6,7 +6,7 @@
 // Units: metres. y points UP (bigger y = higher).
 
 SW.Terrain = {
-  LENGTH: 5000,     // metres from the start line to the Last Lighthouse
+  LENGTH: 4000,     // metres from the start line to the Last Lighthouse
   EXTRA: 320,       // flat-ish land after the finish so there is something to look at
   heights: null,
 
@@ -14,13 +14,13 @@ SW.Terrain = {
   ZONES: [
     { name: 'Salt Shallows',   start: 0,    amp: 2.2, rough: 0.4, ground: '#eadcc0', crust: '#fffaf0', strata: '#cdb894',
       line: 'The old shoreline. Flat salt, easy going.' },
-    { name: 'Coral Graveyard', start: 800,  amp: 4.0, rough: 0.7, ground: '#e7b8a6', crust: '#fff1ea', strata: '#c98f7f',
+    { name: 'Coral Graveyard', start: 650,  amp: 4.0, rough: 0.7, ground: '#e7b8a6', crust: '#fff1ea', strata: '#c98f7f',
       line: 'Bleached reef, white as bone. Mind the gaps.' },
-    { name: 'Wreck Field',     start: 1800, amp: 5.0, rough: 0.8, ground: '#cbb196', crust: '#f5ead8', strata: '#9f8468',
+    { name: 'Wreck Field',     start: 1450, amp: 5.0, rough: 0.8, ground: '#cbb196', crust: '#f5ead8', strata: '#9f8468',
       line: 'A thousand ships ran aground the night the sea left.' },
-    { name: 'The Trench',      start: 2900, amp: 7.0, rough: 1.0, ground: '#a3919f', crust: '#ece2ec', strata: '#76657a',
+    { name: 'The Trench',      start: 2330, amp: 7.0, rough: 1.0, ground: '#a3919f', crust: '#ece2ec', strata: '#76657a',
       line: 'The deep water. Now just the deep.' },
-    { name: 'Lighthouse Reef', start: 4100, amp: 4.5, rough: 0.8, ground: '#8f87a6', crust: '#e6e2f2', strata: '#655d80',
+    { name: 'Lighthouse Reef', start: 3280, amp: 4.5, rough: 0.8, ground: '#8f87a6', crust: '#e6e2f2', strata: '#655d80',
       line: 'The beam is turning. Almost there.' },
   ],
 
@@ -28,46 +28,46 @@ SW.Terrain = {
   // kicker = a launch ramp, gap = a ramp then a drop into the deep, wreck = a ship hull to drive over.
   SET_PIECES: [
     // Salt Shallows: small kickers to learn air control
-    { type: 'kicker', x: 150, h: 1.4, len: 10 },
-    { type: 'kicker', x: 310, h: 1.8, len: 10 },
-    { type: 'kicker', x: 480, h: 2.1, len: 10 },
-    { type: 'kicker', x: 660, h: 2.4, len: 11 },
+    { type: 'kicker', x: 120, h: 1.4, len: 10 },
+    { type: 'kicker', x: 250, h: 1.8, len: 10 },
+    { type: 'kicker', x: 385, h: 2.1, len: 10 },
+    { type: 'kicker', x: 530, h: 2.4, len: 11 },
     // Coral Graveyard: the first gaps
-    { type: 'kicker', x: 900, h: 2.6, len: 10 },
-    { type: 'gap', x: 1060, w: 6 },
-    { type: 'kicker', x: 1250, h: 3.0, len: 12 },
-    { type: 'gap', x: 1480, w: 8 },
-    { type: 'kicker', x: 1660, h: 2.6, len: 9 },
+    { type: 'kicker', x: 720, h: 2.6, len: 10 },
+    { type: 'gap', x: 850, w: 6 },
+    { type: 'kicker', x: 1000, h: 3.0, len: 12 },
+    { type: 'gap', x: 1185, w: 8 },
+    { type: 'kicker', x: 1330, h: 2.6, len: 9 },
     // Wreck Field: drive right over the stranded ships
-    { type: 'wreck', x: 1920, h: 4, len: 36 },
-    { type: 'gap', x: 2070, w: 9 },
-    { type: 'wreck', x: 2250, h: 5, len: 40 },
-    { type: 'kicker', x: 2420, h: 3.0, len: 10 },
-    { type: 'wreck', x: 2580, h: 6, len: 44 },
-    { type: 'gap', x: 2760, w: 10 },
+    { type: 'wreck', x: 1535, h: 4, len: 36 },
+    { type: 'gap', x: 1655, w: 9 },
+    { type: 'wreck', x: 1800, h: 5, len: 40 },
+    { type: 'kicker', x: 1935, h: 3.0, len: 10 },
+    { type: 'wreck', x: 2065, h: 6, len: 44 },
+    { type: 'gap', x: 2210, w: 10 },
     // The Trench: big gaps over the deep
-    { type: 'gap', x: 3060, w: 11 },
-    { type: 'kicker', x: 3260, h: 3.2, len: 10 },
-    { type: 'gap', x: 3430, w: 12 },
-    { type: 'gap', x: 3700, w: 12 },
-    { type: 'wreck', x: 3860, h: 5, len: 36 },
-    { type: 'gap', x: 4000, w: 11 },
+    { type: 'gap', x: 2450, w: 11 },
+    { type: 'kicker', x: 2610, h: 3.2, len: 10 },
+    { type: 'gap', x: 2745, w: 12 },
+    { type: 'gap', x: 2960, w: 12 },
+    { type: 'wreck', x: 3090, h: 5, len: 36 },
+    { type: 'gap', x: 3200, w: 11 },
     // Lighthouse Reef: the final climb
-    { type: 'kicker', x: 4250, h: 3.0, len: 10 },
-    { type: 'gap', x: 4450, w: 10 },
-    { type: 'wreck', x: 4630, h: 5, len: 40 },
-    { type: 'kicker', x: 4800, h: 2.6, len: 10 },
+    { type: 'kicker', x: 3400, h: 3.0, len: 10 },
+    { type: 'gap', x: 3560, w: 10 },
+    { type: 'wreck', x: 3705, h: 5, len: 40 },
+    { type: 'kicker', x: 3840, h: 2.6, len: 10 },
   ],
 
   // Fuel cans dropped along the route (metres).
-  FUEL_CANS: [600, 980, 1360, 1740, 2130, 2510, 2900, 3290, 3660, 4060, 4420, 4780],
+  FUEL_CANS: [560, 930, 1300, 1680, 2050, 2420, 2800, 3170, 3540, 3900],
   FUEL_CAN_AMOUNT: 25,
 
   // Breakable obstacles. toughness = speed (m/s) needed to smash through.
   OBSTACLES: {
-    crate:  { w: 1.1, h: 1.1, toughness: 3.5, slow: 0.10, cash: 5,  color: '#a8754a' },
-    timber: { w: 0.6, h: 2.0, toughness: 7,   slow: 0.18, cash: 8,  color: '#7a5537' },
-    spire:  { w: 0.9, h: 2.8, toughness: 9.5, slow: 0.24, cash: 12, color: '#f2a7a0' },
+    crate:  { w: 1.1, h: 1.1, toughness: 3.5, slow: 0.10, cash: 10, color: '#a8754a' },
+    timber: { w: 0.6, h: 2.0, toughness: 7,   slow: 0.18, cash: 15, color: '#7a5537' },
+    spire:  { w: 0.9, h: 2.8, toughness: 9.5, slow: 0.24, cash: 25, color: '#f2a7a0' },
   },
 
   // ------------------------------------------------------------------
@@ -94,8 +94,8 @@ SW.Terrain = {
     const amp = this.zoneValue(x, 'amp'), rough = this.zoneValue(x, 'rough');
     let h = amp * (Math.sin(x / 43 + 1.3) + 0.55 * Math.sin(x / 19.3 + 4.1) + 0.22 * rough * Math.sin(x / 8.7 + 0.7));
     h *= U.smoothstep(25, 110, x);                 // flat start line
-    h += -18 * U.smoothstep(2850, 3150, x);        // drop down into the Trench...
-    h += 30 * U.smoothstep(3950, 4500, x);         // ...and the long climb up to the reef
+    h += -18 * U.smoothstep(2280, 2520, x);        // drop down into the Trench...
+    h += 30 * U.smoothstep(3160, 3600, x);         // ...and the long climb up to the reef
     return h;
   },
 
@@ -221,7 +221,8 @@ SW.Terrain = {
   _q: { x: 0, y: 0, d: 0 },
   closest(px, py, x0, x1) {
     const h = this.heights;
-    const i0 = Math.max(0, Math.floor(x0)), i1 = Math.min(h.length - 2, Math.ceil(x1));
+    const last = h.length - 2;   // clamp so we always test at least one segment, even off the map
+    const i0 = SW.util.clamp(Math.floor(x0), 0, last), i1 = SW.util.clamp(Math.ceil(x1), 0, last);
     let best = Infinity, bx = px, by = this.heightAt(px);
     for (let i = i0; i <= i1; i++) {
       const ay = h[i], dy = h[i + 1] - ay;

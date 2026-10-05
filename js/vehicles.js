@@ -12,7 +12,7 @@ SW.Vehicles = {
       mass: 420, length: 3.6,
       wheels: [{ x: -1.15, y: -0.25, drive: true }, { x: 1.2, y: -0.25, drive: false }],
       susLen: 0.5, spring: 12500, damp: 1300, wheelR: 0.42,
-      torque: 650, topSpeed: 12.5, grip: 1.0,
+      torque: 800, topSpeed: 15, grip: 1.0,
       hull: 120, fuelUse: 1.0, boostThrust: 9, boostCap: 1.0,
       airLean: 5.5, groundLean: 2.0, reaction: 0.5,
       hullShape: [[-1.8, 0.35], [1.45, 0.35], [1.95, 0.6], [1.55, 0.0], [1.05, -0.35], [-1.5, -0.35], [-1.8, -0.05]],
@@ -23,13 +23,13 @@ SW.Vehicles = {
       colors: { hull: '#3d8c95', stripe: '#f1dfb4', deck: '#8a6a4d' },
     },
     trawler: {
-      name: 'The Trawler', price: 6000,
+      name: 'The Trawler', price: 5000,
       blurb: 'A rust-red fishing boat on truck axles. Four-wheel drive, heavy, unstoppable.',
       mass: 640, length: 4.5,
       wheels: [{ x: -1.45, y: -0.3, drive: true }, { x: 1.5, y: -0.3, drive: true }],
       susLen: 0.6, spring: 17500, damp: 2000, wheelR: 0.5,
-      torque: 1250, topSpeed: 16, grip: 1.12,
-      hull: 170, fuelUse: 0.85, boostThrust: 10, boostCap: 1.1,
+      torque: 1350, topSpeed: 17, grip: 1.12,
+      hull: 170, fuelUse: 0.95, boostThrust: 10, boostCap: 1.1,
       airLean: 4.8, groundLean: 1.8, reaction: 0.45,
       hullShape: [[-2.25, 0.45], [1.9, 0.5], [2.4, 0.85], [2.0, 0.0], [1.4, -0.4], [-1.9, -0.4], [-2.25, -0.05]],
       roofPoints: [[-1.35, 1.65], [0.25, 1.65], [0.95, 2.15]],
@@ -39,13 +39,13 @@ SW.Vehicles = {
       colors: { hull: '#b5523b', stripe: '#f4ead6', deck: '#6b4a37' },
     },
     hydrofoil: {
-      name: 'The Hydrofoil', price: 18000,
+      name: 'The Hydrofoil', price: 14000,
       blurb: 'A pre-drain racing hydrofoil. Light, fast, hungry for boost.',
       mass: 470, length: 4.3,
       wheels: [{ x: -1.45, y: -0.2, drive: true }, { x: 1.55, y: -0.2, drive: true }],
       susLen: 0.55, spring: 14000, damp: 1500, wheelR: 0.46,
-      torque: 1150, topSpeed: 21, grip: 1.28,
-      hull: 140, fuelUse: 0.72, boostThrust: 13, boostCap: 1.35,
+      torque: 1450, topSpeed: 23, grip: 1.28,
+      hull: 140, fuelUse: 0.78, boostThrust: 13, boostCap: 1.35,
       airLean: 6.5, groundLean: 2.2, reaction: 0.4,
       hullShape: [[-2.15, 0.3], [0.6, 0.38], [2.3, 0.15], [2.0, -0.1], [1.5, -0.25], [-1.9, -0.25], [-2.15, 0.0]],
       roofPoints: [[-0.15, 0.98], [-1.8, 1.05]],
@@ -61,22 +61,22 @@ SW.Vehicles = {
   // The six upgrade tracks. Each has 5 levels; prices rise steeply.
   TRACKS: [
     { id: 'engine', name: 'Outboard Engine', desc: 'More torque and a higher top speed.',
-      prices: [300, 800, 1700, 3300, 6000],
+      prices: [250, 700, 1450, 2800, 5000],
       levels: ['Rusty two-stroke', 'Rebored', 'Twin carbs', 'Brass V-twin', 'Steam-diesel', 'Leviathan'] },
     { id: 'tyres', name: 'Salt Tyres', desc: 'Bigger, knobblier wheels that grip steep dunes.',
-      prices: [200, 550, 1200, 2500, 4500],
+      prices: [200, 450, 1000, 2100, 3800],
       levels: ['Bald', 'Retreaded', 'Knobbly', 'Dune paddles', 'Brass-rim crawlers', 'Reef grippers'] },
     { id: 'fuel', name: 'Fuel Barrels', desc: 'Strap on more barrels and drive for longer.',
-      prices: [250, 650, 1400, 2800, 5000],
+      prices: [200, 550, 1200, 2400, 4200],
       levels: ['One jerrycan', '+1 barrel', 'Big barrel', '+2 barrels', 'Big barrels', 'Whole fuel dump'] },
     { id: 'boost', name: 'Steam Boost', desc: 'Bigger steam tanks and a stronger blast.',
-      prices: [200, 500, 1100, 2400, 4400],
+      prices: [150, 450, 950, 2000, 3700],
       levels: ['Tea kettle', 'Canister', 'Whistle tank', 'Twin tanks', 'Pressure drums', 'Golden whistle'] },
     { id: 'armour', name: 'Hull Plating', desc: 'More hull, less damage, softer hits.',
-      prices: [150, 450, 1000, 2100, 3900],
+      prices: [150, 400, 850, 1800, 3300],
       levels: ['Bare planks', 'Patch plates', 'Riveted belt', 'Full belt', 'Bow armour', 'Spiked keel'] },
     { id: 'ram', name: 'Ram & Harpoon', desc: 'Lv1-2: iron bow ram. Lv3-5: auto-firing harpoon gun.',
-      prices: [300, 800, 1800, 3500, 6500],
+      prices: [250, 700, 1500, 3000, 5500],
       levels: ['Nothing', 'Iron prow', 'Spiked ram', 'Harpoon gun', 'Fast harpoon', 'Twin harpoons'] },
   ],
 
@@ -94,8 +94,8 @@ SW.Vehicles = {
       wheelR: d.wheelR + 0.035 * up.tyres,
       wheelInertia: 0.5 * 25 * d.wheelR * d.wheelR,
       grip: d.grip * (1 + 0.12 * up.tyres),
-      torque: d.torque * (1 + 0.22 * up.engine),
-      topSpeed: d.topSpeed * (1 + 0.11 * up.engine),
+      torque: d.torque * (1 + 0.2 * up.engine),
+      topSpeed: d.topSpeed * (1 + 0.09 * up.engine),
       brakeTorque: d.torque * 1.5,
       reaction: d.reaction,
       airLean: d.airLean, groundLean: d.groundLean,
@@ -291,10 +291,11 @@ SW.Vehicles = {
     const minX = Math.min(...xs), maxX = Math.max(...xs);
     const ys = d.hullShape.map((p) => p[1]);
     const bottom = Math.min(...ys), top = Math.max(...ys);
-    const plateTop = L >= 3 ? bottom + (top - bottom) * 0.62 : bottom + (top - bottom) * 0.42;
+    const plateTop = bottom + (top - bottom) * (L >= 3 ? 0.48 : 0.4);   // lower half only, so the hull colour still shows
     const span = maxX - minX;
     const plates = L === 1 ? [0.25, 0.55] : L === 2 ? [0.1, 0.32, 0.54, 0.76] : null;
-    ctx.fillStyle = '#7d8590'; ctx.strokeStyle = '#3d424a'; ctx.lineWidth = 1.5 * px;
+    ctx.fillStyle = 'rgba(110,118,130,0.72)';   // slightly see-through so the hull colour tints it
+    ctx.strokeStyle = '#3d424a'; ctx.lineWidth = 1.5 * px;
     if (plates) {
       for (const f of plates) {
         ctx.fillRect(minX + span * f, bottom - 0.1, span * 0.18, plateTop - bottom + 0.1);
@@ -306,7 +307,8 @@ SW.Vehicles = {
       ctx.beginPath(); ctx.moveTo(minX, plateTop); ctx.lineTo(maxX, plateTop); ctx.stroke();
     }
     if (L >= 4) {   // bow armour
-      ctx.fillRect(maxX - span * 0.22, bottom - 0.1, span * 0.3, top - bottom + 0.3);
+      ctx.fillRect(maxX - span * 0.2, bottom - 0.1, span * 0.3, plateTop - bottom + 0.35);
+      ctx.strokeRect(maxX - span * 0.2, bottom - 0.1, span * 0.3, plateTop - bottom + 0.35);
     }
     // rivets
     ctx.fillStyle = '#d7dadf';

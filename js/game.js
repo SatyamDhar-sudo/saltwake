@@ -6,12 +6,12 @@ SW.Game = {
   run: null,
 
   // ---- economy knobs (tweak these to make the game easier or harder) ----
-  CASH_PER_METRE: 1,
-  AIR_CASH_PER_SECOND: 12,
-  ZONE_BONUS: [0, 250, 500, 800, 1200],   // one-time bonus the first time you reach each zone
+  CASH_PER_METRE: 2,
+  AIR_CASH_PER_SECOND: 25,
+  ZONE_BONUS: [0, 400, 800, 1200, 1600],   // one-time bonus the first time you reach each zone
   FINISH_BONUS: 5000,
-  FUEL_IDLE: 0.45,                        // fuel used per second just ticking over
-  FUEL_THROTTLE: 1.85,                    // extra fuel per second with the pedal down
+  FUEL_IDLE: 0.6,                         // fuel used per second just ticking over
+  FUEL_THROTTLE: 2.3,                     // extra fuel per second with the pedal down
 
   start() {
     const save = SW.Save.data;
@@ -96,7 +96,7 @@ SW.Game = {
       r.shake = Math.max(r.shake, Math.min(1.2, (s - 5) * 0.15));
       SW.Audio.land((s - 5) / 8);
       SW.Particles.dust(car.x, car.y - 0.9, 12, '#efe4cf', car.vx);
-      if (s > 10) r.hull -= (s - 10) * 2.5 * (1 - st.armourReduce);
+      if (s > 13) r.hull -= (s - 13) * 2 * (1 - st.armourReduce);   // the suspension soaks up the rest
     }
     if (ev.hullImpact > 3.5) {
       const s = ev.hullImpact;

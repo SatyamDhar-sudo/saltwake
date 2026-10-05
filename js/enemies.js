@@ -8,10 +8,10 @@
 
 SW.Enemies = {
   TYPES: {
-    crab:    { name: 'Shellback',   r: 0.8,  hp: 2, bounty: 30, slow: 0.35, damage: 10 },
-    skimmer: { name: 'Skimmer',     r: 0.65, hp: 1, bounty: 25, slow: 0.12, damage: 12 },
-    eel:     { name: 'Burrow Eel',  r: 0.55, hp: 1, bounty: 20, slow: 0.16, damage: 8 },
-    jelly:   { name: 'Brine Jelly', r: 0.7,  hp: 1, bounty: 15, slow: 0.08, damage: 4 },
+    crab:    { name: 'Shellback',   r: 0.8,  hp: 2, bounty: 60, slow: 0.35, damage: 10 },
+    skimmer: { name: 'Skimmer',     r: 0.65, hp: 1, bounty: 50, slow: 0.12, damage: 12 },
+    eel:     { name: 'Burrow Eel',  r: 0.55, hp: 1, bounty: 40, slow: 0.16, damage: 8 },
+    jelly:   { name: 'Brine Jelly', r: 0.7,  hp: 1, bounty: 30, slow: 0.08, damage: 4 },
   },
   list: [],
   harpoons: [],

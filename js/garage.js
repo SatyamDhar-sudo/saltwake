@@ -74,6 +74,7 @@ SW.Garage = {
     this.el.cash.textContent = U.money(save.cash);
     this.el.best.textContent = U.money(save.best);
     this.el.bestBar.style.width = Math.min(100, save.best / SW.Terrain.LENGTH * 100) + '%';
+    document.getElementById('g-length').textContent = SW.Terrain.LENGTH;
 
     for (const tr of SW.Vehicles.TRACKS) {
       const row = this.rows[tr.id], L = save.upgrades[tr.id], cost = this.price(tr.id);
@@ -102,7 +103,7 @@ SW.Garage = {
     this.stats = st;
     const rows = [
       ['Power', st.torque / this.max.torque], ['Top speed', st.topSpeed / this.max.topSpeed],
-      ['Grip', st.grip / this.max.grip], ['Fuel', st.fuelMax / st.fuelUse / (this.max.fuelMax / 0.72)],
+      ['Grip', st.grip / this.max.grip], ['Fuel', st.fuelMax / st.fuelUse / (this.max.fuelMax / 0.78)],
       ['Boost', st.boostMax / this.max.boostMax], ['Hull', st.hullMax / this.max.hullMax],
     ];
     this.el.stats.innerHTML = `<div style="grid-column:1/-1;font-style:italic;color:#5d4f5a">${SW.Vehicles.DEFS[save.vehicle].blurb}</div>` +

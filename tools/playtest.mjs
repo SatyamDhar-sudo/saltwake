@@ -96,6 +96,12 @@ function check(name, ok, detail) {
 
 try {
   if (mode === 'balance') await balance();
+  else if (mode === 'eval') {           // node tools/playtest.mjs eval some-script.js  (for debugging)
+    await injectBot();
+    console.log(JSON.stringify(await evaluate(readFileSync(process.argv[3], 'utf8')), null, 1));
+    if (process.argv[4]) { await sleep(300); await shot(process.argv[4]); }   // optional screenshot name
+    results.push({ ok: true });
+  }
   else await checks();
 } catch (e) {
   console.error('ERROR', e);
@@ -163,7 +169,7 @@ async function checks() {
 
   // 6. Screenshots further along the map + frame time measurement.
   await injectBot();
-  for (const [name, x, up] of [['5-coral', 1000, 1], ['6-wrecks', 2200, 3], ['7-trench', 3480, 4], ['8-reef', 4700, 5]]) {
+  for (const [name, x, up] of [['5-coral', 900, 1], ['6-wrecks', 1770, 3], ['7-trench', 2700, 4], ['8-reef', 3740, 5]]) {
     await evaluate(`(() => {
       const u = SW.Save.data.upgrades; for (const k in u) u[k] = ${up};
       SW.Save.data.vehicle = '${up >= 4 ? 'hydrofoil' : up >= 3 ? 'trawler' : 'dinghy'}';
@@ -190,7 +196,7 @@ async function balance() {
   await injectBot();
   await evaluate('SW.debug.reset()');
   const GARAGE_SECONDS = 12;      // rough time a player spends in the garage + summary per run
-  let total = 0;
+  let total = 0, finished = false;
   console.log('run  vehicle     upgrades(e,t,f,b,a,r)  time   dist   end       earned  bought');
   for (let i = 1; i <= 90; i++) {
     const r = await evaluate(`(() => { SW.debug.start(); const r = SW.debug.simulate(600, BOT);
@@ -199,9 +205,9 @@ async function balance() {
                up: [up.engine, up.tyres, up.fuel, up.boost, up.armour, up.ram].join(','), bought: BOT_SHOP() }; })()`);
     total += r.time + GARAGE_SECONDS;
     console.log(`${String(i).padStart(3)}  ${r.veh.padEnd(10)}  ${r.up.padEnd(21)}  ${r.time.toFixed(0).padStart(4)}s  ${String(r.dist).padStart(5)}  ${r.reason.padEnd(8)}  $${String(r.total).padStart(5)}  ${r.bought.join(' ')}`);
-    if (r.reason === 'finish') break;
+    if (r.reason === 'finish') { finished = true; break; }
   }
   const st = await evaluate('SW.debug.state()');
-  console.log(`\nTotal simulated play time: ${(total / 60).toFixed(1)} min over ${st.runs} runs (finished: ${st.best >= 5000})`);
+  console.log(`\nTotal simulated play time: ${(total / 60).toFixed(1)} min over ${st.runs} runs (finished: ${finished})`);
   results.push({ ok: true });
 }

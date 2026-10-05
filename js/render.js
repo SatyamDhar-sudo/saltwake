@@ -59,10 +59,15 @@ SW.Render = {
   followCar(dt, run) {
     const car = run.car, U = SW.util;
     const speed = Math.hypot(car.vx, car.vy);
-    this.zoom = U.lerp(this.zoom, U.clamp(15.5 + speed * 0.22, 15.5, 23), 1 - Math.exp(-dt * 1.5));
+    // zoom out a little as you speed up, so you can see what's coming
+    this.zoom = U.lerp(this.zoom, U.clamp(13.5 + speed * 0.22, 13.5, 21), 1 - Math.exp(-dt * 1.5));
     this.scale = Math.min(this.H / this.zoom, this.W / (this.zoom * 1.25));
     const tx = car.x + U.clamp(car.vx * 0.45, -3, 8) + (this.W / this.scale) * 0.12;
-    const ty = car.y + 1.5;
+    let ty = car.y + 1.5;
+    if (!car.grounded) {   // in the air: look down towards where you'll land
+      const ground = SW.Terrain.heightAt(car.x + car.vx * 0.5);
+      ty = Math.min(ty, Math.max((car.y + ground) / 2 + 2, ground + 4));
+    }
     this.camX = U.lerp(this.camX, tx, 1 - Math.exp(-dt * 5));
     this.camY = U.lerp(this.camY, ty, 1 - Math.exp(-dt * 4));
     const sh = run.shake;
