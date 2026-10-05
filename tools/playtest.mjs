@@ -96,6 +96,7 @@ function check(name, ok, detail) {
 
 try {
   if (mode === 'balance') await balance();
+  else if (mode === 'mobile') await mobile();
   else if (mode === 'eval') {           // node tools/playtest.mjs eval some-script.js  (for debugging)
     await injectBot();
     console.log(JSON.stringify(await evaluate(readFileSync(process.argv[3], 'utf8')), null, 1));
@@ -188,7 +189,41 @@ async function checks() {
       done({ fps: frames / ((performance.now() - t0) / 1000), avg: times.reduce((a, b) => a + b, 0) / times.length, p95: times[Math.floor(times.length * 0.95)] }); }, 3000);
   })`);
   check('Render cost per frame', perf.avg < 8, `avg ${perf.avg.toFixed(2)} ms, 95th pct ${perf.p95.toFixed(2)} ms, ${perf.fps.toFixed(0)} fps in headless Chrome`);
+
+  // 7. Reaching the lighthouse ends the game with the finale.
+  await evaluate(`(() => { SW.debug.start(); const car = SW.Game.run.car;
+    car.x = 3955; car.y = SW.Terrain.heightAt(3955) + 1.6; car.vx = 16; SW.Render.camX = car.x + 6; SW.Render.camY = car.y;
+    SW.Input.override = BOT; return true; })()`);
+  await sleep(2600);
+  await shot('9-lighthouse');
+  await sleep(2500);
+  const fin = await evaluate('({ reason: SW.Game.run.endReason, finished: SW.Save.data.finished, screen: SW.Main.screen })');
+  check('Reaching the lighthouse finishes the game', fin.reason === 'finish' && fin.finished && fin.screen === 'summary', JSON.stringify(fin));
+  await shot('10-ending');
   await evaluate('SW.Input.override = null; SW.debug.reset()');
+}
+
+// =====================================================================
+// Phone in landscape with a touch screen: check the on-screen buttons and layouts.
+async function mobile() {
+  await send('Emulation.setDeviceMetricsOverride', { width: 844, height: 390, deviceScaleFactor: 2, mobile: true });
+  await send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
+  await send('Page.reload');
+  await sleep(600);
+  await waitForGame();
+  await evaluate('SW.debug.reset(); SW.debug.start(); true');
+  await sleep(300);
+  // Press the on-screen gas button the way a finger would.
+  const box = await evaluate(`(() => { const r = document.querySelector('[data-touch=gas]').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; })()`);
+  await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: box.x, y: box.y }] });
+  await sleep(2500);
+  const moved = await evaluate('SW.Game.run.car.x');
+  await shot('m1-run');
+  await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  check('Touch gas button drives the car', moved > 15, `car x after holding the on-screen gas for 2.5 s: ${moved.toFixed(1)} m`);
+  await evaluate('SW.Game.end("quit"); SW.Main.openGarage(); true');
+  await sleep(400);
+  await shot('m2-garage');
 }
 
 // =====================================================================

@@ -25,7 +25,7 @@ SW.Game = {
     this.run = {
       car, stats, startX,
       fuel: stats.fuelMax, boost: stats.boostMax, hull: stats.hullMax,
-      time: 0, maxX: startX, lastProgressT: 0,
+      time: 0, maxX: startX, progressX: startX, lastProgressT: 0,
       enemiesHit: 0, kills: 0, harpooned: 0, smashed: 0,
       bounty: 0, smashCash: 0, airCash: 0, zoneBonus: 0,
       airTime: 0, curAir: 0, bestAir: 0,
@@ -137,7 +137,8 @@ SW.Game = {
     SW.Enemies.update(dt, r);
 
     // ---- progress and zones ----
-    if (car.x > r.maxX + 0.5) { r.maxX = car.x; r.lastProgressT = r.time; }
+    if (car.x > r.progressX + 0.5) { r.progressX = car.x; r.lastProgressT = r.time; }   // still getting somewhere
+    r.maxX = Math.min(T.LENGTH, Math.max(r.maxX, car.x));
     const z = T.zoneIndex(car.x);
     if (z > r.zone) {
       r.zone = z;
